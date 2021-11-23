@@ -37,16 +37,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkForRoute() {
-    goToLogin();
+    goToDashboard();
   }
 
   goToDashboard() {
-    return Timer(const Duration(seconds: 2),
-        () => Navigator.pushNamed(context, "/dashboard"));
+    return Timer(const Duration(seconds: 4),
+        () => Navigator.pushReplacementNamed(context, "/dashboard"));
   }
 
   goToLogin() {
     return Timer(const Duration(seconds: 2),
-        () => Navigator.pushNamed(context, "/login"));
+        () => Navigator.pushReplacementNamed(context, "/login"));
   }
 }

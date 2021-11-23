@@ -55,13 +55,13 @@ class _SignupState extends State<Signup> {
                       keyboardType: TextInputType.emailAddress,
                       validator: CustomValidators.validateEmail,
                     ),
-                    SharedWidgets.textFormField(
-                      controller: mobileNoController,
-                      title: "Mobile No",
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      validator: CustomValidators.validateMobileNo,
-                    ),
+                    // SharedWidgets.textFormField(
+                    //   controller: mobileNoController,
+                    //   title: "Mobile No",
+                    //   textInputAction: TextInputAction.next,
+                    //   keyboardType: TextInputType.number,
+                    //   validator: CustomValidators.validateMobileNo,
+                    // ),
                     SharedWidgets.textFormField(
                       controller: passwordController,
                       title: "Password",

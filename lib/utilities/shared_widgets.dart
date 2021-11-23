@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:clipit/utilities/utility.dart';
 import 'package:flutter/cupertino.dart';
