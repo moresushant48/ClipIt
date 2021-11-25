@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: LayoutBuilder(
         builder: (context, constraints) => ConstrainedBox(
           constraints: BoxConstraints(
@@ -42,9 +42,9 @@ class _LoginState extends State<Login> {
                       AnimatedTextKit(
                         animatedTexts: [
                           TypewriterAnimatedText("Clip It",
-                              textStyle: const TextStyle(
+                              textStyle: TextStyle(
                                 fontSize: 48,
-                                color: Colors.white,
+                                color: Theme.of(context).primaryColor,
                               ),
                               speed: const Duration(milliseconds: 300)),
                         ],
@@ -53,6 +53,7 @@ class _LoginState extends State<Login> {
                         height: 32,
                       ),
                       SharedWidgets.textFormField(
+                        context,
                         controller: emailController,
                         title: "Email",
                         textInputAction: TextInputAction.next,
@@ -60,6 +61,7 @@ class _LoginState extends State<Login> {
                         validator: CustomValidators.validateEmail,
                       ),
                       SharedWidgets.textFormField(
+                        context,
                         controller: passwordController,
                         title: "Password",
                         obscureText: true,
@@ -73,12 +75,15 @@ class _LoginState extends State<Login> {
                         text: TextSpan(children: [
                           const TextSpan(
                             text: "Don't have an account ? ",
-                            style: TextStyle(fontSize: 16.0),
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.black),
                           ),
                           TextSpan(
                               text: "Sign Up",
                               style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16.0),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                  color: Colors.black),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   Navigator.pushReplacementNamed(

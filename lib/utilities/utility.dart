@@ -11,7 +11,7 @@ class Utility {
     return o == null || false == o || "" == o || "null" == o || "false" == o;
   }
 
-  static bool isNotNullEmptyOrFalse(Object o) {
+  static bool isNotNullEmptyOrFalse(Object? o) {
     return !isNullEmptyOrFalse(o);
   }
 
@@ -72,8 +72,8 @@ class Utility {
     return count;
   }
 
-  static Future storeCookie(var userCookie, String cookieName) async {
-    Future added = storage.write(key: userCookie, value: cookieName);
+  static Future storeCookie(String cookieName, String cookieValue) async {
+    Future added = storage.write(key: cookieName, value: cookieValue);
     return added;
   }
 

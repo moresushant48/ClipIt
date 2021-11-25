@@ -20,27 +20,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    Color primaryColor = const Color(0xFF9c27b0);
-    Color primaryColorLight = const Color(0xFFd05ce3);
-    Color primaryColorDark = const Color(0xFF6a0080);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      color: primaryColor,
       theme: ThemeData(
-        fontFamily: 'Poppins',
-        primaryColor: primaryColor,
-        primaryColorLight: primaryColorLight,
-        primaryColorDark: primaryColorDark,
-        appBarTheme: AppBarTheme(
-          backgroundColor: primaryColor,
-        ),
-        colorScheme: ColorScheme.light(
-          primary: primaryColor,
-          secondary: primaryColorLight,
-        ),
+        brightness: Brightness.light,
+        primaryColorBrightness: Brightness.dark,
+        primarySwatch: Colors.teal,
+        backgroundColor: const Color(0xFFF2F2F2),
       ),
-      themeMode: ThemeMode.dark,
-      initialRoute: "/",
+      initialRoute: "/signup",
       onGenerateRoute: routes,
     );
   }

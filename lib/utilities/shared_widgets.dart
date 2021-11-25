@@ -1,12 +1,22 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:clipit/utilities/utility.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SharedWidgets {
   static void empty() {}
-  static Widget textFormField(
+
+  static void somethingWentWrong() => Fluttertoast.showToast(
+      msg: "Something went wrong.", backgroundColor: Colors.red);
+  static void successToast(String msg) =>
+      Fluttertoast.showToast(msg: msg, backgroundColor: Colors.green);
+  static void failureToast(String msg) =>
+      Fluttertoast.showToast(msg: msg, backgroundColor: Colors.red);
+
+  static Widget textFormField(BuildContext context,
       {
       // options
       controller,
@@ -19,6 +29,7 @@ class SharedWidgets {
       //
       }) {
     return Container(
+      width: kIsWeb ? 400 : null,
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,20 +39,19 @@ class SharedWidgets {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     title,
-                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 16, color: Theme.of(context).primaryColor),
                   ),
                 )
               : Container(),
           TextFormField(
             controller: controller,
-            style: const TextStyle(color: Colors.white),
-            cursorColor: Colors.white,
             decoration: InputDecoration(
               border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(18)),
                   borderSide: BorderSide.none),
               filled: true,
-              fillColor: Colors.grey[100]!.withOpacity(0.3),
+              fillColor: Colors.grey[290],
             ),
             obscureText: obscureText,
             keyboardType: keyboardType,
@@ -66,21 +76,24 @@ class SharedWidgets {
     required Function onTap,
   }) {
     return Container(
+      width: kIsWeb ? 400 : null,
       padding: const EdgeInsets.symmetric(vertical: 48.0),
       child: ArgonButton(
         height: height != 0.0 ? height : 50,
         width: width != 0.0 ? width : MediaQuery.of(context).size.width * 0.8,
         roundLoadingShape: true,
-        color: Theme.of(context).primaryColorLight,
+        color: Theme.of(context).primaryColor,
         child: Text(
           btnText,
           style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
         borderRadius: 40.0,
         onTap: (startLoading, stopLoading, btnState) {
-          startLoading();
-          Utility.isNotNullEmptyOrFalse(onTap) ? onTap() : null;
-          stopLoading();
+          if (btnState != ButtonState.Busy) {
+            startLoading();
+            Utility.isNotNullEmptyOrFalse(onTap) ? onTap() : null;
+            stopLoading();
+          }
         },
       ),
     );

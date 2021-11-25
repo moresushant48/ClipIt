@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkForRoute() {
-    goToDashboard();
+    goToLogin();
   }
 
   goToDashboard() {
