@@ -1,6 +1,7 @@
 import 'package:clipit/screens/qr_scanner.dart';
 import 'package:clipit/utilities/custom_images.dart';
 import 'package:clipit/utilities/shared_widgets.dart';
+import 'package:clipit/utilities/utility.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -68,6 +69,16 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+  final menu = const {'Sign Out'};
+  _select(String choice) {
+    switch (choice) {
+      case 'Sign Out':
+        Utility.logout(context);
+        break;
+      default:
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +86,25 @@ class _DashboardState extends State<Dashboard> {
         elevation: 0.0,
         centerTitle: true,
         title: const Text("Clip It"),
+        actions: [
+          PopupMenuButton(
+            onSelected: _select,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(12.0),
+              ),
+            ),
+            enableFeedback: true,
+            itemBuilder: (BuildContext context) {
+              return menu.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
       ),
       body: kIsWeb ? buildWebView(context) : buildMobileView(context),
     );

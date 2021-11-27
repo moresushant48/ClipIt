@@ -1,5 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:clipit/models/user.model.dart';
+import 'package:clipit/services/user.service.dart';
 import 'package:clipit/utilities/shared_widgets.dart';
+import 'package:clipit/utilities/utility.dart';
 import 'package:clipit/utilities/validators.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +72,10 @@ class _LoginState extends State<Login> {
                         keyboardType: TextInputType.visiblePassword,
                         validator: CustomValidators.validatePassword,
                       ),
-                      SharedWidgets.argonButton(context,
-                          btnText: "LOGIN", onTap: () {}),
+                      SharedWidgets.argonButton(context, btnText: "LOGIN",
+                          onTap: () {
+                        verifyUser();
+                      }),
                       RichText(
                         text: TextSpan(children: [
                           const TextSpan(
@@ -100,5 +105,25 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  verifyUser() async {
+    try {
+      if (loginKey.currentState!.validate()) {
+        UserModel user = UserModel();
+        user.email = emailController.text.trim();
+        user.password = passwordController.text.trim();
+        await UserService().verifyUser(user).then((userResponseModel) {
+          if (Utility.isNotNullEmptyOrFalse(userResponseModel)) {
+            SharedWidgets.successToast('Login Successful.');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/dashboard', (_) => false);
+          }
+        });
+      }
+    } catch (e) {
+      SharedWidgets.somethingWentWrong();
+      print(e);
+    }
   }
 }

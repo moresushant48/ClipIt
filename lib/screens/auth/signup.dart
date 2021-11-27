@@ -91,8 +91,8 @@ class _SignupState extends State<Signup> {
                                   color: Colors.black),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.pushReplacementNamed(
-                                      context, "/login");
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, "/login", (_) => false);
                                 })
                         ]),
                       )
@@ -116,7 +116,8 @@ class _SignupState extends State<Signup> {
         await UserService().addUser(user).then((userResponseModel) {
           if (Utility.isNotNullEmptyOrFalse(userResponseModel)) {
             SharedWidgets.successToast('Registered Successfully.');
-            Navigator.pushNamed(context, '/dashboard');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/dashboard', (_) => false);
           }
         });
       }
