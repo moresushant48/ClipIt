@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1005135928222",
+    "project_id": "clipit-moresushant48",
+    "storage_bucket": "clipit-moresushant48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005135928222:android:5a9febdfd6c7a6a3b9548f",
+        "android_client_info": {
+          "package_name": "io.moresushant48.clipit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005135928222-0as0dirf4jktdohavkdj5fihqfdlt5p3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGnO-0K3l1uv_muJk47DYyapqc2MeunzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005135928222-0as0dirf4jktdohavkdj5fihqfdlt5p3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
