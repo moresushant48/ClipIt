@@ -11,7 +11,7 @@ class WebDashboard extends StatefulWidget {
 }
 
 class _WebDashboardState extends State<WebDashboard> {
-  bool isLoading = false;
+  bool isLoading = true;
   String sessionId = "";
 
   @override

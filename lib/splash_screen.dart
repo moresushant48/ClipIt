@@ -5,6 +5,7 @@ import 'package:clipit/services/user.service.dart';
 import 'package:clipit/utilities/custom_dialogs.dart';
 import 'package:clipit/utilities/utility.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    checkForRoute();
+    kIsWeb ? goToDashboard() : checkForRoute();
   }
 
   @override

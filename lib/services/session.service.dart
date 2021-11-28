@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 class SessionService {
   Future<SessionModel?> getNewSession() async {
     try {
-      Dio dio = await Request().getApiClient(false);
+      Dio dio = await Request().getApiClient(true);
       Response response = await dio.get(Endpoints.sessionsCreate);
 
       if (Utility.isNotNullEmptyOrFalse(response.data) &&
