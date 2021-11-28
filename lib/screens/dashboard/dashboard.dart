@@ -45,7 +45,12 @@ class _DashboardState extends State<Dashboard> {
           ),
         ],
       ),
-      body: kIsWeb ? const WebDashboard() : const MobileDashboard(),
+      body: LayoutBuilder(
+        builder: (context, constraints) => ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: kIsWeb ? const WebDashboard() : const MobileDashboard(),
+        ),
+      ),
     );
   }
 
