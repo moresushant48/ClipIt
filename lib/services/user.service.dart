@@ -6,6 +6,27 @@ import 'package:clipit/utilities/utility.dart';
 import 'package:dio/dio.dart';
 
 class UserService {
+  Future<UserModel?> me(String token) async {
+    UserModel userModel = UserModel();
+    try {
+      Dio dio = await Request().getApiClient(false);
+      Response response = await dio.get(
+        Endpoints.me,
+        options: Options(headers: {'token': token}),
+      );
+
+      if (response.data["responseCode"] == 200) {
+        return userModel = UserModel.fromJson(response.data["user"]);
+      }
+    } catch (e) {
+      print(e);
+      SharedWidgets.somethingWentWrong();
+      return null;
+    }
+
+    return userModel;
+  }
+
   Future<UserResponseModel?> addUser(UserModel user) async {
     UserResponseModel userResponseModel = UserResponseModel();
     try {

@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.teal,
         backgroundColor: const Color(0xFFF2F2F2),
       ),
-      initialRoute: "/signup",
+      initialRoute: "/",
       onGenerateRoute: routes,
     );
   }

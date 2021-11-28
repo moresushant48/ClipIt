@@ -1,4 +1,6 @@
 class Endpoints {
+  static String me = '/users/me';
+
   static String users = '/users';
   static String usersById = '/users/';
   static String usersAdd = '/users/add';

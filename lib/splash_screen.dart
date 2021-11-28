@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:clipit/services/user.service.dart';
+import 'package:clipit/utilities/custom_dialogs.dart';
+import 'package:clipit/utilities/utility.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,10 +15,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late StreamSubscription<ConnectivityResult> connectivityListener;
+
   @override
   void initState() {
     super.initState();
     checkForRoute();
+  }
+
+  @override
+  void dispose() {
+    connectivityListener.cancel();
+    super.dispose();
   }
 
   @override
@@ -36,8 +48,35 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  void checkForRoute() {
-    goToLogin();
+  void checkForRoute() async {
+    // Check internet connection at start.
+    Connectivity().checkConnectivity().then((value) {
+      if (value == ConnectivityResult.none) {
+        CustomDialogs.connectivityDialog(context);
+      }
+    });
+
+    // If internet is not available then, this Listener will make sure to keep user out put app.
+    connectivityListener =
+        Connectivity().onConnectivityChanged.listen((event) async {
+      if (event == ConnectivityResult.none) {
+        CustomDialogs.connectivityDialog(context);
+      }
+    });
+
+    var token = await Utility.getCookies('token');
+    if (Utility.isNotNullEmptyOrFalse(token)) {
+      UserService().me(token).then((user) {
+        if (Utility.isNotNullEmptyOrFalse(user)) {
+          Utility.storeCookie('id', user!.id.toString());
+          Utility.storeCookie('email', user.email);
+
+          goToDashboard();
+        }
+      });
+    } else {
+      goToLogin();
+    }
   }
 
   goToDashboard() {
