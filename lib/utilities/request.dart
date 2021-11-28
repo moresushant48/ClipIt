@@ -6,10 +6,11 @@ class Request {
   Future<Dio> getApiClient(bool isPublic) async {
     Dio dio = Dio(Constants.networkOptions);
     dio.interceptors.clear();
-    var token = await Utility.getCookies('token');
+
     dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) {
+      onRequest: (options, handler) async {
         if (!isPublic) {
+          var token = await Utility.getCookies('token');
           options.headers["Authorization"] = "Bearer " + token;
         }
         return handler.next(options);
