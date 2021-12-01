@@ -16,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late StreamSubscription<ConnectivityResult> connectivityListener;
+  var connectivityListener = null;
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
-    connectivityListener.cancel();
+    if (!kIsWeb) connectivityListener.cancel();
     super.dispose();
   }
 
@@ -50,20 +50,22 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkForRoute() async {
-    // Check internet connection at start.
-    Connectivity().checkConnectivity().then((value) {
-      if (value == ConnectivityResult.none) {
-        CustomDialogs.connectivityDialog(context);
-      }
-    });
+    if (!kIsWeb) {
+      // Check internet connection at start.
+      Connectivity().checkConnectivity().then((value) {
+        if (value == ConnectivityResult.none) {
+          CustomDialogs.connectivityDialog(context);
+        }
+      });
 
-    // If internet is not available then, this Listener will make sure to keep user out put app.
-    connectivityListener =
-        Connectivity().onConnectivityChanged.listen((event) async {
-      if (event == ConnectivityResult.none) {
-        CustomDialogs.connectivityDialog(context);
-      }
-    });
+      // If internet is not available then, this Listener will make sure to keep user out put app.
+      connectivityListener =
+          Connectivity().onConnectivityChanged.listen((event) async {
+        if (event == ConnectivityResult.none) {
+          CustomDialogs.connectivityDialog(context);
+        }
+      });
+    }
 
     var token = await Utility.getCookies('token');
     if (Utility.isNotNullEmptyOrFalse(token)) {

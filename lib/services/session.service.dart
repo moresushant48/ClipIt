@@ -28,4 +28,23 @@ class SessionService {
     }
     return null;
   }
+
+  Future<bool> setUserForSession(String sessionId) async {
+    try {
+      Dio dio = await Request().getApiClient(false);
+      Response response = await dio
+          .post(Endpoints.sessionsSetUser, data: {'sessionId': sessionId});
+
+      if (Utility.isNotNullEmptyOrFalse(response.data) &&
+          response.data['responseCode'] == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      SharedWidgets.somethingWentWrong();
+      return false;
+    }
+  }
 }

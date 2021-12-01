@@ -5,6 +5,7 @@ class SessionModel {
   late bool enabled;
   late bool isDeleted;
   late String sessionId;
+  late String content;
   late int userID;
   late int createdBy;
   late String createdTimestamp;
@@ -16,6 +17,7 @@ class SessionModel {
     this.enabled = true,
     this.isDeleted = false,
     this.sessionId = "",
+    this.content = "",
     this.userID = 0,
     this.createdBy = 0,
     this.createdTimestamp = "",
@@ -28,6 +30,7 @@ class SessionModel {
     enabled = json['enabled'];
     isDeleted = json['isDeleted'];
     sessionId = json['sessionId'];
+    content = json['content'];
     userID = Utility.isNotNullEmptyOrFalse(json['userID']) ? json['userID'] : 0;
     // createdBy = json['createdBy'];
     // createdTimestamp = json['createdTimestamp'];
@@ -42,6 +45,7 @@ class SessionModel {
     data['isDeleted'] = isDeleted;
     data['sessionId'] = sessionId;
     data['userID'] = userID;
+    data['content'] = content;
     // data['createdBy'] = createdBy;
     // data['createdTimestamp'] = createdTimestamp;
     // data['updatedBy'] = updatedBy;

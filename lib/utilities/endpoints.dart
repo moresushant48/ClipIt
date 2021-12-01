@@ -9,4 +9,5 @@ class Endpoints {
   static String sessions = '/sessions';
   static String sessionsById = '/sessions/';
   static String sessionsCreate = '/sessions/create';
+  static String sessionsSetUser = '/sessions/user';
 }
